@@ -41,8 +41,8 @@ geno <- geno %>%
   select(-allele_index) %>%
   select(variant.id, chr, pos, ref, alt, everything())
 
-outfile <- "genotypes.tsv.gz"
+outfile <- "genotypes.rds"
 if (nchar(argv$out_prefix) > 0) {
   outfile <- paste(argv$out_prefix, outfile, sep = "_")
 }
-write_tsv(geno, outfile)
+saveRDS(geno, outfile)
