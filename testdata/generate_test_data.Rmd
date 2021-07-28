@@ -1,0 +1,100 @@
+---
+title: Generate test data
+author: "Adrienne Stilp"
+date:  "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    keep_md: true
+---
+
+```{r knitr-setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+options(width=120)
+```
+
+Download GDS from [TOPMed analysis_pipeline repository](https://github.com/UW-GAC/analysis_pipeline/tree/master/testdata).
+
+```{r library-setup, message = FALSE, echo=FALSE}
+library(dplyr)
+library(SeqVarTools)
+gds <- seqOpen("1KG_phase3_subset.gds")
+```
+
+# Sample include file
+
+```{r}
+set.seed(123)
+sample_include <- sample(seqGetData(gds, "sample.id"), 1000)
+saveRDS(sample_include, file = "sample_include.rds")
+```
+
+# Variant include
+
+Choose some variants that are mono-morphic and some that are not.
+
+```{r}
+seqSetFilter(gds, sample.id=sample_include)
+variant_info <- variantInfo(gds) %>%
+  # Add some more info
+  mutate(n_alleles = nAlleles(gds),
+  af = alleleFrequency(gds),
+  maf = pmin(af, 1 - af)
+)
+```
+
+```{r}
+variant_include <- c()
+```
+
+## One monomorphic variant
+
+```{r}
+set.seed(123)
+tmp <- variant_info %>%
+  filter(maf == 0, n_alleles == 2) %>%
+  sample_n(1)
+tmp
+
+variant_include <- c(variant_include, tmp$variant.id)
+```
+
+## 10 polymorphic variants
+
+```{r}
+set.seed(123)
+tmp <- variant_info %>%
+  filter(maf > 0.2, n_alleles == 2) %>%
+  sample_n(10)
+tmp
+
+variant_include <- c(variant_include, tmp$variant.id)
+```
+
+## One variant with multiple alleles
+
+```{r}
+set.seed(123)
+tmp <- variant_info %>%
+  filter(n_alleles > 2) %>%
+  sample_n(1)
+tmp
+
+variant_include <- c(variant_include, tmp$variant.id)
+```
+
+## Combine and save
+
+```{r}
+variant_include <- sort(variant_include)
+variant_include
+
+saveRDS(variant_include, "variant_include.rds")
+```
+
+# Clean up
+
+```{r}
+seqClose(gds)
+```
