@@ -47,3 +47,8 @@ docs/
 po/*~
 
 *.html
+
+# renv
+renv/
+renv.lock
+.Rprofile
