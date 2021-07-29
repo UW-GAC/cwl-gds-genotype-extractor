@@ -28,21 +28,22 @@ geno <- expandedAltDosage(gds)
 
 seqClose(gds)
 
+var_info <- var_info %>%
+  mutate(variant = sprintf("chr%s:%d_%s_%s", chr, pos, ref, alt))
+
+colnames(geno) <- var_info$variant
+
 geno <- geno %>%
-  t() %>%
-  as_tibble(rownames = "variant.id") %>%
-  mutate(variant.id = as.integer(variant.id)) %>%
-  group_by(variant.id) %>%
-  # Add an allele index for getting chr/pos/ref/alt info.
-  mutate(allele_index = 1:n()) %>%
-  ungroup() %>%
-  left_join(var_info, by = c("variant.id", allele_index = "allele.index")) %>%
-  # Order columns as desired.
-  select(-allele_index) %>%
-  select(variant.id, chr, pos, ref, alt, everything())
+  as_tibble(rownames = "sample.id")
 
 outfile <- "genotypes.rds"
 if (nchar(argv$out_prefix) > 0) {
   outfile <- paste(argv$out_prefix, outfile, sep = "_")
 }
 saveRDS(geno, outfile)
+
+outfile <- "variants.rds"
+if (nchar(argv$out_prefix) > 0) {
+  outfile <- paste(argv$out_prefix, outfile, sep = "_")
+}
+saveRDS(var_info, outfile)

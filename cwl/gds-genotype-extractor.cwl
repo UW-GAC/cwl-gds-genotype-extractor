@@ -7,8 +7,9 @@ doc: |-
   The user can specify the set of samples to include and the set of variants to include in the output file.
   This tool is intended to extract a small number of variants and is not optimized to handle large numbers of variants.
 
-  The tool produces an RDS file containing a tibble with variant info and sample genotypes.
-  The first five columns give information about each variant and alternate allele:
+  The tool produces two RDS files.
+
+  The first file (`genotypes.rds`) contains information about each variant included in the output, with the following columns:
   column | description
   --- | ---
   `variant.id` | variant identifier for this variant
@@ -16,8 +17,14 @@ doc: |-
   `pos` | position of this variant
   `ref` | reference allele for this variant
   `alt` | alternate allele for this variant
+  `allele.index` | index of this alternate allele in the GDS file
+  `variant` | string identifier for this variant, also used as the column name in the  `genotypes.rds` output file.
 
-  The remaining columns are the sample identifiers, and the contents are the dosage of the alternate allele for that sample.
+  The second file (`variants.rds`) contains a tibble with sample identifiers and genotypes for each variant:
+  column | description
+  --- | ---
+  `sample.id` | sample identifier from the GDS file
+  `<variant>` | the dosage for this variant. One column per requested variant.
 
 requirements:
 - class: ShellCommandRequirement
@@ -56,13 +63,17 @@ inputs:
     position: 4
     shellQuote: false
   label: Output file prefix.
-  doc: Output file prefix. Will be appended to "_genotypes.rds".
+  doc: Output file prefix. Will be appended to "_genotypes.rds" and "_variant_info.rds".
 
 outputs:
 - id: genotype_file
   type: File?
   outputBinding:
-    glob: '*.rds'
+    glob: '*genotypes.rds'
+- id: variant_info_file
+  type: File?
+  outputBinding:
+    glob: '*variants.rds'
 stdout: job.out.log
 
 baseCommand:
