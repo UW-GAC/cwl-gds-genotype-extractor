@@ -154,7 +154,7 @@ class PlatformLdIndex(Platform):
     other_input = {
         'output_prefix': 'unittest'
     }
-    APP = 'amstilp/gds-genotype-extractor-devel/test'
+    APP = 'amstilp/gds-genotype-extractor-devel/gds-genotype-extractor'
     TASK_NAME = 'unittest'
 
 
