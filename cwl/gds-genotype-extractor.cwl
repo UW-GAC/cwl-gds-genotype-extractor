@@ -17,7 +17,7 @@ doc: |-
   `pos` | position of this variant
   `ref` | reference allele for this variant
   `alt` | alternate allele for this variant
-  `allele.index` | index of this alternate allele in the GDS file
+  `allele.index` | index of this alternate allele in the GDS file (for multiallelic variants, 1=first alternate allele, 2=second alternate allele, etc.)
   `variant` | string identifier for this variant, also used as the column name in the  `genotypes.rds` output file.
 
   The second file (`variants.rds`) contains a tibble with sample identifiers and genotypes for each variant:
