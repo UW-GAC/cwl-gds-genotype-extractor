@@ -24,7 +24,7 @@ doc: |-
   column | description
   --- | ---
   `sample.id` | sample identifier from the GDS file
-  `<variant>` | the dosage for this variant. One column per requested variant.
+  `<variant>` | the dosage of the alternate allele for this variant. One column per requested variant.
 
 requirements:
 - class: ShellCommandRequirement
