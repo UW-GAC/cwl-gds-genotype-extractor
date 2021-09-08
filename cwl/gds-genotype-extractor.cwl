@@ -9,7 +9,7 @@ doc: |-
 
   The tool produces two RDS files.
 
-  The first file (`genotypes.rds`) contains information about each variant included in the output, with the following columns:
+  The first file (`variants.rds`) contains information about each variant included in the output, with the following columns:
   column | description
   --- | ---
   `variant.id` | variant identifier for this variant
@@ -20,7 +20,7 @@ doc: |-
   `allele.index` | index of this alternate allele in the GDS file (for multiallelic variants, 1=first alternate allele, 2=second alternate allele, etc.)
   `variant` | string identifier for this variant, also used as the column name in the  `genotypes.rds` output file.
 
-  The second file (`variants.rds`) contains a tibble with sample identifiers and genotypes for each variant:
+  The second file (`genotypes.rds`) contains a tibble with sample identifiers and genotypes for each variant:
   column | description
   --- | ---
   `sample.id` | sample identifier from the GDS file
