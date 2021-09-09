@@ -42,7 +42,7 @@ if (nchar(argv$out_prefix) > 0) {
 }
 saveRDS(geno, outfile)
 
-outfile <- "variants.rds"
+outfile <- "variant_info.rds"
 if (nchar(argv$out_prefix) > 0) {
   outfile <- paste(argv$out_prefix, outfile, sep = "_")
 }

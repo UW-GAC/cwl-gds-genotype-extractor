@@ -9,7 +9,7 @@ doc: |-
 
   The tool produces two RDS files.
 
-  The first file (`variants.rds`) contains information about each variant included in the output, with the following columns:
+  The first file (`variant_info.rds`) contains information about each variant included in the output, with the following columns:
   column | description
   --- | ---
   `variant.id` | variant identifier for this variant
@@ -73,7 +73,7 @@ outputs:
 - id: variant_info_file
   type: File?
   outputBinding:
-    glob: '*variants.rds'
+    glob: '*variant_info.rds'
 stdout: job.out.log
 
 baseCommand:

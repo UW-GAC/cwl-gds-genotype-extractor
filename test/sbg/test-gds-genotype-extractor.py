@@ -186,7 +186,7 @@ class PlatformLdIndex(Platform):
             else:
                 self.assertEqual(out_expected_name, out_name)
 
-            out_expected_name = 'unittest_variants.rds'
+            out_expected_name = 'unittest_variant_info.rds'
             out_name = self.task.outputs['variant_info_file'].name
             if out_name.startswith('_'):
                 self.assertEqual(out_expected_name, '_'.join(out_name.split('_')[2:]))
