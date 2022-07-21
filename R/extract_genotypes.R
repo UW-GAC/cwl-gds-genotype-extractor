@@ -15,7 +15,11 @@ argp <- arg_parser("Extract genotypes") %>%
 argv <- parse_args(argp)
 print(argv)
 
-sample_include <- readRDS(argv$sample_include_file)
+if (!is.na(argv$sample_include_file)) {
+  sample_include <- readRDS(argv$sample_include_file)
+} else {
+  sample_include <- NULL
+}
 variant_include <- readRDS(argv$variant_include_file)
 
 gds <- seqOpen(argv$gds)
