@@ -42,6 +42,7 @@ inputs:
     shellQuote: false
   label: GDS file
   doc: GDS file
+  'sbg:fileTypes': GDS
 - id: sample_include_file
   type: File?
   inputBinding:
@@ -50,6 +51,7 @@ inputs:
     shellQuote: false
   label: Sample include file
   doc: File containing the sample ids to include in the output file.
+  'sbg:fileTypes': RDS
 - id: variant_include_file
   type: File
   inputBinding:
@@ -58,6 +60,7 @@ inputs:
     shellQuote: false
   label: Variant include file
   doc: File containing variant ids to include in the output file.
+  'sbg:fileTypes': RDS
 - id: output_prefix
   type: string
   inputBinding:
