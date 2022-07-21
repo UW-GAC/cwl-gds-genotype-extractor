@@ -4,8 +4,10 @@ label: GDS Genotype Extractor
 doc: |-
   This tool extracts genotypes from a GDS file into an RDS file.
 
-  The user can specify the set of samples to include and the set of variants to include in the output file.
   This tool is intended to extract a small number of variants and is not optimized to handle large numbers of variants.
+  The user must specify the set of variants to include in the `variant_include_file`.
+  This file must be in `.rds` format and contain a vector of integer variant_id values from the GDS file for which to extract genotypes.
+  The user can optionally provide a `sample_include` file to indicate a subset of samples for which to extract genotypes. If provided, it must also be in `.rds` format and contain a vector of `sample.id` values in the GDS file.
 
   The tool produces two RDS files.
 
