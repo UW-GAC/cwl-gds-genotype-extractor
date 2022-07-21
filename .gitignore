@@ -52,3 +52,6 @@ po/*~
 renv/
 renv.lock
 .Rprofile
+
+# venv
+venv
